@@ -17,7 +17,10 @@ $ui.toolbar.setNavigationOnClickListener(function () {
 });
 activity.supportActionBar.setDisplayHomeAsUpEnabled(true);
 
-// shell am start -n com.example.directionControl/com.stardust.autojs.execution.ScriptExecuteActivity
+// 配合scrcpy+anywhere+ 
+// 主界面Activity: shell am start -n com.example.directionControl/com.stardust.autojs.inrt.SplashActivity 可用
+
+// 转换界面Activity: shell am start -n com.example.directionControl/com.stardust.autojs.execution.ScriptExecuteActivity 不可用
 
 threads.start(function () {
     //执行方向切换逻辑
@@ -49,13 +52,20 @@ threads.start(function () {
         
         
     }
+    storage.put("accessToken","true")
+    
+    //模拟返回键 依赖于Root
+    Back()
+ 
 
-    
-    //模拟返回键 依赖于无障碍服务
-    back()
-    
+    //重新跳转回主页面
+    //只有跳转才会重新刷新主页面
+    $engines.execScriptFile("./main.js")
+
     //关闭当前页面
-    $ui.finish();
+    // $ui.finish();
+    
+
     //关闭自己 (整个app)
     // shell("am force-stop " + getPackageName("directionControl"), true)
 })
