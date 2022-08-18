@@ -1,6 +1,6 @@
 "ui";
 
-ui.layout(
+$ui.layout(
     <vertical>
         <appbar>
             <toolbar id="toolbar" />
@@ -17,7 +17,7 @@ $ui.toolbar.setNavigationOnClickListener(function () {
 });
 activity.supportActionBar.setDisplayHomeAsUpEnabled(true);
 
-
+// shell am start -n com.example.directionControl/com.stardust.autojs.execution.ScriptExecuteActivity
 
 threads.start(function () {
     //执行方向切换逻辑
@@ -46,13 +46,21 @@ threads.start(function () {
         id("r1").findOne().click() //横屏下转竖屏
 
         storage.put("rotation", "vertical")
+        
+        
     }
 
-    //关闭自己
-    shell("am force-stop " + getPackageName("directionControl"), true)
-
-
+    
+    //模拟返回键 依赖于无障碍服务
+    back()
+    
+    //关闭当前页面
+    $ui.finish();
+    //关闭自己 (整个app)
+    // shell("am force-stop " + getPackageName("directionControl"), true)
 })
+
+
 
 
 
