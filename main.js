@@ -7,7 +7,7 @@ $ui.layout(
 
     <vertical>
         <appbar>
-            <toolbar id="toolbar" title="Basic UI" />
+            <toolbar id="toolbar" title="主界面" />
         </appbar>
 
         <button id="toggle_rotation" text="切换方向" style="Widget.AppCompat.Button.Colored" w="auto" />
@@ -66,6 +66,37 @@ function addItem(menu, title, icon, showAsAction) {
 $ui.toggle_rotation.on("click", () => {
     $engines.execScriptFile("./toggleRotationView.js")
 })
+
+
+
+let storage = storages.create("directionControl")
+if (!(storage.contains("accessToken") && storage.get("accessToken") === "true")) {
+    //自动跳转切换页面
+    $engines.execScriptFile("./toggleRotationView.js")
+} else {
+    //移除token
+    storage.remove("accessToken")
+
+
+
+    
+    //关闭当前页面
+    //使用auto.js内部的api的页面跳转用finish()关闭
+    // $ui.finish();
+
+    
+
+    //停止所用脚本，单独停会因为时间有bug
+    engines.stopAll()
+
+    //点击按扭等系统逻辑用back()模拟返回
+    // Back()
+}
+
+
+
+
+
 
 
 // $ui.list.on("item_click", (item, i, itemView, listView) => {
