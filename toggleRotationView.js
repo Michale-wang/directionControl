@@ -54,8 +54,10 @@ threads.start(function () {
     }
     storage.put("accessToken","true")
     
+    //模拟返回键 依赖于无障碍
+    back()
     //模拟返回键 依赖于Root
-    Back()
+    // Back()
  
 
     //重新跳转回主页面
